@@ -24,11 +24,13 @@ def Setup():
 	GPIO.setup(SwitchPin, GPIO.IN)
 	GPIO.setup(TrigPin, GPIO.OUT)
 	GPIO.setup(EchoPin, GPIO.IN)
-
+	
+#define Switch On and OFF Check and HumanSenSor Check
 def CheckSenSor():
 	SwitchMode()
 	HuManSenSor()
 
+#define Red Led 
 def RLed():
 	print 'Red Led On'
 	CheckSenSor()
@@ -38,6 +40,7 @@ def RLed():
 	GPIO.output(RedPin, GPIO.LOW)
 	time.sleep(1)
 
+#define Green Led
 def GLed():
 	print 'Green Led On'
 	CheckSenSor()
@@ -47,6 +50,7 @@ def GLed():
 	GPIO.output(GreenPin, GPIO.LOW)
 	time.sleep(1)
 
+#define Yellow Led
 def YLed():
 	print 'Yellow Led On'
 	CheckSenSor()
@@ -56,6 +60,7 @@ def YLed():
 	GPIO.output(YellowPin, GPIO.LOW)
 	time.sleep(1)
 
+#define HuManSenSor Detecting
 def HuManSenSor():
 	HValue = GPIO.input(HumanPin)
 	if(HValue == GPIO.HIGH):
@@ -66,6 +71,7 @@ def HuManSenSor():
 		GPIO.output(BuzzerPin, GPIO.LOW)
 		time.sleep(1)
 
+#define Switch Push and Pull Detecting
 def SwitchMode():
 	SValue = GPIO.input(SwitchPin)
 	if(SValue == GPIO.HIGH):
@@ -74,11 +80,13 @@ def SwitchMode():
 		
 	return SValue
 
+#define Print Temperature and Humidity 
 def printTempHumi():
 	time.sleep(0.5)
 	h,t = dht.read_retry(dht.DHT11, TempPin)
 	print 'Temperature = {0:0.1f}*C\n Humidity = {1:0.1f}%'.format(t,h)
 
+#define Print Distance
 def printUltra():
 	GPIO.output(TrigPin, GPIO.LOW)
 	time.sleep(0.3)
@@ -96,10 +104,13 @@ def printUltra():
 	Distance = round(Distance,2)
 
 	print "Distance Between Human Sensor and Person : ", Distance , "CM" 
-
+	
+#define Main Method
 try:
 	while True:
+#PinSetup
 		Setup()
+#Each Led Method Call
 		RLed()
 		time.sleep(1)
 		YLed()
